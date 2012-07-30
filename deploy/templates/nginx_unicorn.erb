@@ -1,0 +1,17 @@
+upstream unicorn_<%= application %> {
+  server unix:/tmp/unicorn.<%= application %>.sock fail_timeout=0;
+}
+
+server {
+  listen 80 default deferred;
+  server_name <%= server_name %>;
+  root <%= current_path %>/public;
+	try_files $uri/index.html $uri @unicorn_<%= application %>;
+	location @unicorn_<%= application %> {
+		proxy_pass http://unicorn_<%= application %>;
+	}
+
+  error_page 500 502 503 504 /500.json;
+  client_max_body_size 4G;
+  keepalive_timeout 10;
+}
