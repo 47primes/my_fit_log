@@ -6,11 +6,12 @@ module API::UsersControllerActions
   end
   
   def create
-    respond_with User.create(params[:user])
+    @user = User.create(params[:user])
+    respond_with @user, location: @user.api_key
   end
 
   def update
-    respond_with User.update(params[:user])
+    respond_with @user.update_attributes(params[:user])
   end
   
   def reset_password

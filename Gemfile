@@ -13,4 +13,6 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'assert_difference'
+  gem 'factory_girl_rails'
+  gem 'forgery'
 end

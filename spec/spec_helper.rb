@@ -4,9 +4,12 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'assert_difference'
+require 'factory_girl_rails'
+require 'forgery'
 require 'jbuilder'
 require 'shoulda-matchers'
 require 'will_paginate'
+require 'api_responder'
 # Capybara.default_selector = :xpath
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -15,6 +18,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   config.include AssertDifference
+  config.include FactoryGirl::Syntax::Methods
   
   # ## Mock Framework
   #

@@ -8,36 +8,36 @@ describe API::V2::SessionsController,"#create" do
     @request.env["Content-Type"] = "application/json"
   end
   
-  context "with valid login credentials" do
+  describe "with valid login credentials" do
     before do
       @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64::encode64("#{@user.email}:#{@user.password}")}"
       post :create, {:format => "json"}
     end
     
-    it { should respond_with(:success) }
+    it { should respond_with(:created) }
     it { should respond_with_content_type(:json)  }
     it { should assign_to(:user).with(@user) }
-    it { @controller.response.location.should == user_url(@user)  }
+    it { should respond_with_location(@user.api_key)  }
   end
   
-  context "with an invalid email" do
+  describe "with an invalid email" do
     before do
       @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64::encode64("invalid@test.com:#{@user.password}")}"
       post :create, {:format => "json"}
     end
     
-    it { should respond_with(:unprocessable_entity) }
+    it { should respond_with(:unauthorized) }
     it { should respond_with_content_type(:json)  }
     it { should assign_to(:user).with(nil) }
   end
     
-  context "with a wrong password" do
+  describe "with a wrong password" do
     before do
       @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64::encode64("#{@user.email}:wrong")}"
       post :create, {:format => "json"}
     end
     
-    it { should respond_with(:unprocessable_entity) }
+    it { should respond_with(:unauthorized) }
     it { should respond_with_content_type(:json)  }
     it { should assign_to(:user).with(false) }
   end

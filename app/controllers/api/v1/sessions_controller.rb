@@ -2,9 +2,9 @@ class API::V1::SessionsController < API::V1::ApplicationController
   
   def create
     if @user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
-      response.location = user_url(@user)
+      head :created, location: @user.api_key
     else
-      response.status = :unprocessable_entity
+      head :unauthorized
     end
   end
   

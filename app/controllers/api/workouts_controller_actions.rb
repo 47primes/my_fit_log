@@ -2,26 +2,37 @@ module API::WorkoutsControllerActions
   def self.included(klass)
     klass.class_eval do
       before_filter :validate_api_key
+      before_filter :find_workout, only: [:show, :update, :destroy]
     end
   end
 
   def index
-    respond_with @user.workouts.order("#{params[:sort_by]} #{params[:sort_direction]}").page(params[:page])
+    @workouts = @user.workouts.order("#{params[:sort_by]} #{params[:sort_direction]}").page(params[:page])
+    respond_with @workouts
   end
 
   def show
-    respond_with @user.workouts.find(params[:id])
+    respond_with @workout, responder: APIResponder
   end
 
   def create
-    respond_with @user.workouts.create(params[:workout])
+    @workout = @user.workouts.create(params[:workout])
+    respond_with @workout, responder: APIResponder, location: (v2_user_workout_url(@workout) if @workout.valid?)
   end
 
   def update
-    respond_with @user.workouts.update(params[:id], params[:workout])
+    @workout.update_attributes(params[:workout]) if @workout
+    respond_with @workout, responder: APIResponder
   end
 
   def destroy
-    respond_with @user.workouts.destroy(params[:id])
+    @workout.destroy if @workout
+    respond_with @workout, responder: APIResponder
+  end
+  
+  protected
+  
+  def find_workout
+    @workout = @user.workouts.find_by_id(params[:id])
   end
 end
