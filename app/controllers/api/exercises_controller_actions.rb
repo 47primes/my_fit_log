@@ -2,26 +2,37 @@ module API::ExercisesControllerActions
   def self.included(klass)
     klass.class_eval do
       before_filter :validate_api_key
+      before_filter :find_exercise, only: [:show, :update, :destroy]
     end
   end
   
   def index
-    respond_with @user.exercises
+    @exercises = @user.exercises.page(params[:page])
+    respond_with @exercises
   end
 
   def show
-    respond_with @user.exercises.find(params[:id])
+    respond_with @exercise, responder: APIResponder
   end
 
   def create
-    respond_with @user.exercises.create(params[:exercise])
+    @exercise = @user.exercises.create(params[:exercise])
+    respond_with @exercise, responder: APIResponder, location: (user_exercise_url(@exercise) if @exercise.valid?) 
   end
 
   def update
-    respond_with @user.exercises.update(params[:id], params[:exercise])
+    @exercise.update_attributes(params[:exercise]) if @exercise
+    respond_with @exercise, responder: APIResponder
   end
 
   def destroy
-    respond_with @user.exercises.destroy(params[:id])
+    @exercise.destroy if @exercise
+    respond_with @exercise, responder: APIResponder
+  end
+
+  protected
+
+  def find_exercise
+    @exercise = @user.exercises.find_by_id(params[:id]) or head(:not_found) and return
   end
 end

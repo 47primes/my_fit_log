@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(:version => 20120730044023) do
 
   create_table "exercises", :force => true do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.string   "instructions"
     t.datetime "created_at",   :null => false

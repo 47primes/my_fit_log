@@ -42,7 +42,6 @@ describe API::V2::WorkoutsController do
       end
       
       it { should respond_with(:not_found) }
-      it { should respond_with_content_type(:json) }
       it { should assign_to(:user).with @user }
       it { should assign_to(:workout).with nil }
     end
@@ -57,7 +56,7 @@ describe API::V2::WorkoutsController do
       it { should respond_with(:created) }
       it { should respond_with_content_type(:json) }
       it { should assign_to(:workout).with assigns(:workout) }
-      it { should respond_with_location(v2_user_workout_url(assigns(:workout))) }
+      it { should respond_with_location user_workout_url(assigns(:workout)) }
     end
     
     describe "for an invalid post" do
@@ -103,7 +102,6 @@ describe API::V2::WorkoutsController do
     end
     
     it { should respond_with(:no_content) }
-    it { should respond_with_content_type(:json) }
     it { should assign_to(:user).with(@user) }
     it("should delete the workout") { Workout.find_by_id(@workout.id).should be_nil }
   end

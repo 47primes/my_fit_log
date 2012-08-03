@@ -17,7 +17,7 @@ module API::WorkoutsControllerActions
 
   def create
     @workout = @user.workouts.create(params[:workout])
-    respond_with @workout, responder: APIResponder, location: (v2_user_workout_url(@workout) if @workout.valid?)
+    respond_with @workout, responder: APIResponder, location: (user_workout_url(@workout) if @workout.valid?)
   end
 
   def update
@@ -33,6 +33,6 @@ module API::WorkoutsControllerActions
   protected
   
   def find_workout
-    @workout = @user.workouts.find_by_id(params[:id])
+    @workout = @user.workouts.find_by_id(params[:id]) or head(:not_found) and return
   end
 end

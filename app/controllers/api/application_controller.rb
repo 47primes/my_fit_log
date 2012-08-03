@@ -13,7 +13,7 @@ module API
     def set_api_version
       @api_version = /application\/vnd\.my_fit_log\.v(\d+)/.match(request.headers["Accept"]).to_a.last || "1"
     end
-
+    
     def validate_request_content_type
       self.class.mimes_for_respond_to.keys.each do |mime|
         if (request.post? || request.put?) && request.headers["Content-Type"] != Mime::Type.lookup_by_extension(mime).to_s
