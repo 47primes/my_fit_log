@@ -35,7 +35,7 @@ describe API::V1::WorkoutsController do
     describe "when the workout cannot be found" do
       before do
         workout = create(:workout)
-        get :show, {id: workout.id, api_key: @user.api_key, format: "json"}
+        get :show, {id: workout, api_key: @user.api_key, format: "json"}
       end
       
       it { should respond_with(:not_found) }
@@ -72,7 +72,7 @@ describe API::V1::WorkoutsController do
     describe "for a valid update" do
       before do
         @workout = create(:workout, user: @user)
-        put :update, {id: @workout.id, workout: {summary: "Increased my max on bench by 15 lbs."}, 
+        put :update, {id: @workout, workout: {summary: "Increased my max on bench by 15 lbs."}, 
                       api_key: @user.api_key, format: "json"}
       end
     
@@ -85,7 +85,7 @@ describe API::V1::WorkoutsController do
     describe "for an invalid update" do
       before do
         workout = create(:workout, user: @user)
-        put :update, {id: workout.id, workout: {completed_at: ""}, api_key: @user.api_key, format: "json"}
+        put :update, {id: workout, workout: {completed_at: ""}, api_key: @user.api_key, format: "json"}
       end
     
       it { should respond_with(:unprocessable_entity) }
@@ -97,7 +97,7 @@ describe API::V1::WorkoutsController do
   describe "DELETE to destroy" do
     before do
       @workout = @user.workouts.first
-      delete :destroy, {id: @workout.id, api_key: @user.api_key, format: "json"}
+      delete :destroy, {id: @workout, api_key: @user.api_key, format: "json"}
     end
     
     it { should respond_with(:no_content) }

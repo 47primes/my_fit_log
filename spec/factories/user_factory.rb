@@ -19,11 +19,10 @@ FactoryGirl.define do
     factory :user_with_routines do
       ignore do
         workout_count 5
-        routine_count 5
       end
       
       after(:create) do |user, evaluator| 
-        create_list(create(:workout_with_routines, evaluator.routine_count), evaluator.workout_count, user: user)
+        create_list(:workout_with_routines, evaluator.workout_count, user: user)
       end
     end
   end
