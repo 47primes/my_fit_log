@@ -36,7 +36,7 @@ module API
   		# Email error to admin 
   		respond_to do |format|
         self.class.mimes_for_respond_to.keys.each do |mime|
-          format.send(mime) { render template: "api/v#{@api_version}/error", status: :internal_server_error }
+          format.send(mime) { render template: "api/v#{@api_version}/500", status: :internal_server_error }
         end
       end
       return
