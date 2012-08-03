@@ -74,7 +74,7 @@ describe API::V2::WorkoutsController do
     describe "for a valid update" do
       before do
         @workout = create(:workout, user: @user)
-        put :update, {id: @workout.id, :workout => {summary: "Increased my max on bench by 15 lbs."}, format: "json"}
+        put :update, {id: @workout.id, workout: {summary: "Increased my max on bench by 15 lbs."}, format: "json"}
       end
     
       it { should respond_with(:no_content) }
@@ -86,7 +86,7 @@ describe API::V2::WorkoutsController do
     describe "for an invalid update" do
       before do
         workout = create(:workout, user: @user)
-        put :update, {id: workout.id, :workout => {completed_at: ""}, format: "json"}
+        put :update, {id: workout.id, workout: {completed_at: ""}, format: "json"}
       end
     
       it { should respond_with(:unprocessable_entity) }
