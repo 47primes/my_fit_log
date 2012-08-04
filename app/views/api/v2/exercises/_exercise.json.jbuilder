@@ -1,0 +1,1 @@
+json.(exercise, :name, :instructions)

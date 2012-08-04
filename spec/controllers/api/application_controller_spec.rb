@@ -1,5 +1,4 @@
 require 'spec_helper'
-# require 'rspec/rails/example/controller_example_group'
 
 describe API::ApplicationController do
   
