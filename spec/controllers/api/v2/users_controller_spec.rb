@@ -3,7 +3,7 @@ require "spec_helper"
 describe API::V2::UsersController do
   before do
     @request.env["Accept"] = "application/vnd.truth_packer.v2"
-    @request.env[API::ApplicationController::DEVICE_HEADER_KEY] = "MyFitLog Android"
+    @request.env[API::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog Android"
     @request.env["Content-Type"] = "application/json"
   end
   

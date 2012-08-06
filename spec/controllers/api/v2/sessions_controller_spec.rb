@@ -4,13 +4,13 @@ describe API::V2::SessionsController,"#create" do
   before do
     @user = User.create!(:name => "Mike Bradford", :email => "test@test.com", :password => "test", :password_confirmation => "test")
     @request.env["Accept"] = "application/vnd.my_fit_log.v2"
-    @request.env[API::ApplicationController::DEVICE_HEADER_KEY] = "MyFitLog iOS"
+    @request.env[API::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
     @request.env["Content-Type"] = "application/json"
   end
   
   describe "with valid login credentials" do
     before do
-      @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64::encode64("#{@user.email}:#{@user.password}")}"
+      @request.env["Authorization"] = "Basic #{Base64::encode64("#{@user.email}:#{@user.password}")}"
       post :create, {:format => "json"}
     end
     
@@ -22,7 +22,7 @@ describe API::V2::SessionsController,"#create" do
   
   describe "with an invalid email" do
     before do
-      @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64::encode64("invalid@test.com:#{@user.password}")}"
+      @request.env["Authorization"] = "Basic #{Base64::encode64("invalid@test.com:#{@user.password}")}"
       post :create, {:format => "json"}
     end
     
@@ -33,7 +33,7 @@ describe API::V2::SessionsController,"#create" do
     
   describe "with a wrong password" do
     before do
-      @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64::encode64("#{@user.email}:wrong")}"
+      @request.env["Authorization"] = "Basic #{Base64::encode64("#{@user.email}:wrong")}"
       post :create, {:format => "json"}
     end
     

@@ -1,14 +1,20 @@
 module API
   class ApplicationController < ActionController::Base
-    API_HEADER_KEY = "API-Key"
-    DEVICE_HEADER_KEY = "Application-Device"
+    API_HEADER_KEY = "X-API-Key"
+    USER_AGENT_HEADER_KEY = "User-Agent"
     respond_to :json
     rescue_from StandardError, with: :handle_exception
     rescue_from Exception, with: :handle_exception
-    before_filter :set_api_version
+    before_filter :log_request_headers, :set_api_version
     attr_reader :api_version
     
     protected
+    
+    def log_request_headers
+      request.headers.each do |header, value|
+        logger.info "[#{header}] = #{value}"
+      end
+    end
 
     def set_api_version
       @api_version = /application\/vnd\.my_fit_log\.v(\d+)/.match(request.headers["Accept"]).to_a.last || "1"
@@ -23,7 +29,7 @@ module API
     end
 
     def validate_request_device_header
-      return head(:bad_request) unless request.headers[DEVICE_HEADER_KEY] =~ /MyFitLog (Android|iOS)/
+      return head(:bad_request) unless request.headers[USER_AGENT_HEADER_KEY] =~ /MyFitLog (Android|iOS)/
     end
     
     def validate_api_key
