@@ -3,10 +3,10 @@ require "spec_helper"
 describe Api::V2::RoutinesController do
   before do
     @request.env["Accept"] = "application/vnd.my_fit_log.v2"
-    @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-    @request.env["Content-Type"] = "application/json"
+    @request.env["User-Agent"] = "MyFitLog iOS"
+    @request.env["CONTENT_TYPE"] = "application/json"
     @user = create(:user_with_routines)
-    @request.env[Api::ApplicationController::API_HEADER_KEY] = @user.reload.api_key
+    @request.env["From"] = @user.reload.api_key
     @workout = @user.workouts.first
     @routine = @workout.routines.first
   end

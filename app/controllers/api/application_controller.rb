@@ -1,7 +1,5 @@
 module Api
   class ApplicationController < ActionController::Base
-    API_HEADER_KEY = "X-API-Key"
-    USER_AGENT_HEADER_KEY = "User-Agent"
     respond_to :json
     rescue_from StandardError, with: :handle_exception
     rescue_from Exception, with: :handle_exception
@@ -22,18 +20,18 @@ module Api
     
     def validate_request_content_type
       self.class.mimes_for_respond_to.keys.each do |mime|
-        if (request.post? || request.put?) && request.headers["Content-Type"] != Mime::Type.lookup_by_extension(mime).to_s
+        if (request.post? || request.put?) && request.headers["CONTENT_TYPE"] != Mime::Type.lookup_by_extension(mime).to_s
           return head(:unsupported_media_type)
         end
       end
     end
 
     def validate_request_device_header
-      return head(:bad_request) unless request.headers[USER_AGENT_HEADER_KEY] =~ /MyFitLog (Android|iOS)/
+      return head(:bad_request) unless request.headers["User-Agent"] =~ /MyFitLog (Android|iOS)/
     end
     
     def validate_api_key
-      @user = User.find_by_api_key(request.headers[API_HEADER_KEY])
+      @user = User.find_by_api_key(request.headers["From"])
       return head(:unauthorized) if @user.nil?
     end
 

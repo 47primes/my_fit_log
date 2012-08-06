@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Api::V1::RoutinesController do
   before do
-    @request.env["Content-Type"] = "application/json"    
+    @request.env["CONTENT_TYPE"] = "application/json"    
     @user = create(:user_with_routines)
     @workout = @user.workouts.first
     @routine = @workout.routines.first

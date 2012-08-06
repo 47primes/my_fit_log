@@ -23,16 +23,16 @@ describe Api::ApplicationController do
   describe "api_version" do
     it "should set the value from the 'Accept' request header" do
       @request.env["Accept"] = "application/vnd.my_fit_log.v3"
-      @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-      @request.env["Content-Type"] = "application/json"
+      @request.env["User-Agent"] = "MyFitLog iOS"
+      @request.env["CONTENT_TYPE"] = "application/json"
       get :index, {format: "json"}
       
       assert @controller.api_version.should == "3"
     end
     
     it "should set a default value when no 'Accept' request header is sent" do
-      @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-      @request.env["Content-Type"] = "application/json"
+      @request.env["User-Agent"] = "MyFitLog iOS"
+      @request.env["CONTENT_TYPE"] = "application/json"
       get :index, {format: "json"}
       
       assert @controller.api_version.should == "1"
@@ -40,8 +40,8 @@ describe Api::ApplicationController do
     
     it "should set a default value when the 'Accept' request header format is unrecognizable" do
       @request.env["Accept"] = "application/vnd.v3"
-      @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-      @request.env["Content-Type"] = "application/json"
+      @request.env["User-Agent"] = "MyFitLog iOS"
+      @request.env["CONTENT_TYPE"] = "application/json"
       get :index, {format: "json"}
       
       assert @controller.api_version.should == "1"
@@ -51,8 +51,8 @@ describe Api::ApplicationController do
   describe "validate_request_device_header" do
     describe "with an invalid device request header" do
       before do
-        @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "iPhone"
-        @request.env["Content-Type"] = "application/json"
+        @request.env["User-Agent"] = "iPhone"
+        @request.env["CONTENT_TYPE"] = "application/json"
         get :index, {format: "json"}
       end
       
@@ -63,8 +63,8 @@ describe Api::ApplicationController do
   describe "validate_request_content_type" do
     describe "with an invalid content type request header" do
       before do
-        @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-        @request.env["Content-Type"] = "text/html"
+        @request.env["User-Agent"] = "MyFitLog iOS"
+        @request.env["CONTENT_TYPE"] = "text/html"
         post :create, {format: "json"}
       end
       
@@ -76,9 +76,9 @@ describe Api::ApplicationController do
     describe "with an invalid api_key" do
       before do
         @request.env["Accept"] = "application/vnd.my_fit_log.v2"
-        @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-        @request.env["Content-Type"] = "application/json"
-        @request.env[Api::ApplicationController::API_HEADER_KEY] = "adfjaeje"
+        @request.env["User-Agent"] = "MyFitLog iOS"
+        @request.env["CONTENT_TYPE"] = "application/json"
+        @request.env["From"] = "adfjaeje"
         post :create, {format: "json"}
       end
       
@@ -90,9 +90,9 @@ describe Api::ApplicationController do
     describe "when an exception is raised" do
       before do
         @request.env["Accept"] = "application/vnd.my_fit_log.v2"
-        @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-        @request.env["Content-Type"] = "application/json"
-        @request.env[Api::ApplicationController::API_HEADER_KEY] = "adfjaeje"
+        @request.env["User-Agent"] = "MyFitLog iOS"
+        @request.env["CONTENT_TYPE"] = "application/json"
+        @request.env["From"] = "adfjaeje"
         get :new, {format: "json"}
       end
       

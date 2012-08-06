@@ -4,8 +4,8 @@ describe Api::V2::SessionsController,"#create" do
   before do
     @user = User.create!(:name => "Mike Bradford", :email => "test@test.com", :password => "test", :password_confirmation => "test")
     @request.env["Accept"] = "application/vnd.my_fit_log.v2"
-    @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog iOS"
-    @request.env["Content-Type"] = "application/json"
+    @request.env["User-Agent"] = "MyFitLog iOS"
+    @request.env["CONTENT_TYPE"] = "application/json"
   end
   
   describe "with valid login credentials" do
