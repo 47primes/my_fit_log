@@ -1,11 +1,8 @@
 class Api::V2::SessionsController < Api::V2::ApplicationController
   
   def create
-    if @user = authenticate_with_http_basic { |email, password| User.find_by_email(email).try(:authenticate, password) }
-      head :created, location: @user.api_key
-		else
-		  head :unauthorized
-	  end
+    @user = authenticate_with_http_basic { |email, password| User.find_by_email(email).try(:authenticate, password) }
+	  head :unauthorized unless @user
   end
   
 end

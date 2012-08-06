@@ -10,10 +10,9 @@ describe Api::V1::SessionsController,"#create" do
       post :create, {:email => @user.email, :password => "test", :format => "json"}
     end
     
-    it { should respond_with(:created) }
+    it { should respond_with(:success) }
     it { should respond_with_content_type(:json)  }
     it { should assign_to(:user).with(@user) }
-    it { should respond_with_location(@user.api_key)  }
   end
   
   describe "with invalid email" do
