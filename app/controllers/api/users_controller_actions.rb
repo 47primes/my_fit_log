@@ -1,4 +1,4 @@
-module API::UsersControllerActions
+module Api::UsersControllerActions
   def self.included(klass)
     klass.class_eval do
       before_filter :validate_api_key, only: :update

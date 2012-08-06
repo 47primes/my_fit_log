@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe API::V2::UsersController do
+describe Api::V2::UsersController do
   before do
     @request.env["Accept"] = "application/vnd.truth_packer.v2"
-    @request.env[API::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog Android"
+    @request.env[Api::ApplicationController::USER_AGENT_HEADER_KEY] = "MyFitLog Android"
     @request.env["Content-Type"] = "application/json"
   end
   
@@ -66,7 +66,7 @@ describe API::V2::UsersController do
   describe "PUT to update" do
     before do
       @user = create(:user, password: "test")
-      @request.env[API::ApplicationController::API_HEADER_KEY] = @user.reload.api_key
+      @request.env[Api::ApplicationController::API_HEADER_KEY] = @user.reload.api_key
       put :update, {user: {password: "testing", password_confirmation: "testing"}, format: "json"}
     end
     it { should respond_with(:no_content) }

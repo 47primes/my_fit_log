@@ -1,4 +1,4 @@
-module API::RoutinesControllerActions
+module Api::RoutinesControllerActions
   def self.included(klass)
     klass.class_eval do
       before_filter :validate_api_key
@@ -13,22 +13,22 @@ module API::RoutinesControllerActions
   end
 
   def show
-    respond_with @routine, responder: APIResponder
+    respond_with @routine, responder: ApiResponder
   end
 
   def create
     @routine = @workout.routines.create(params[:routine])
-    respond_with @routine, responder: APIResponder, location: (user_workout_routine_url(@workout, @routine) if @routine.valid?)
+    respond_with @routine, responder: ApiResponder, location: (user_workout_routine_url(@workout, @routine) if @routine.valid?)
   end
 
   def update
     @routine.update_attributes(params[:routine]) if @routine
-    respond_with @routine, responder: APIResponder
+    respond_with @routine, responder: ApiResponder
   end
 
   def destroy
     @routine.destroy if @routine
-    respond_with @routine, responder: APIResponder
+    respond_with @routine, responder: ApiResponder
   end
 
   protected

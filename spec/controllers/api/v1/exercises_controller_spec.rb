@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe API::V1::ExercisesController do
+describe Api::V1::ExercisesController do
   before do
     @user = create(:user)
     @squats = create(:squats, user: @user)

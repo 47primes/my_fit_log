@@ -1,3 +1,3 @@
-class API::V2::ExercisesController < API::V2::ApplicationController
-  include API::ExercisesControllerActions
+class Api::V2::ExercisesController < Api::V2::ApplicationController
+  include Api::ExercisesControllerActions
 end

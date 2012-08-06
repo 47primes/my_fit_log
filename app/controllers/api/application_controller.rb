@@ -1,4 +1,4 @@
-module API
+module Api
   class ApplicationController < ActionController::Base
     API_HEADER_KEY = "X-API-Key"
     USER_AGENT_HEADER_KEY = "User-Agent"

@@ -1,5 +1,5 @@
-# Override the default API behavior
-class APIResponder < ActionController::Responder
+# Override the default Api behavior
+class ApiResponder < ActionController::Responder
   
   # For nil resources (from which Model.find_by_id returns nil), respond with a 404 status code.
   # When creating a resources, just send a 201 status code and location.

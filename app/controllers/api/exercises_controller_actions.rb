@@ -1,4 +1,4 @@
-module API::ExercisesControllerActions
+module Api::ExercisesControllerActions
   def self.included(klass)
     klass.class_eval do
       before_filter :validate_api_key
@@ -12,22 +12,22 @@ module API::ExercisesControllerActions
   end
 
   def show
-    respond_with @exercise, responder: APIResponder
+    respond_with @exercise, responder: ApiResponder
   end
 
   def create
     @exercise = @user.exercises.create(params[:exercise])
-    respond_with @exercise, responder: APIResponder, location: (user_exercise_url(@exercise) if @exercise.valid?) 
+    respond_with @exercise, responder: ApiResponder, location: (user_exercise_url(@exercise) if @exercise.valid?) 
   end
 
   def update
     @exercise.update_attributes(params[:exercise]) if @exercise
-    respond_with @exercise, responder: APIResponder
+    respond_with @exercise, responder: ApiResponder
   end
 
   def destroy
     @exercise.destroy if @exercise
-    respond_with @exercise, responder: APIResponder
+    respond_with @exercise, responder: ApiResponder
   end
 
   protected

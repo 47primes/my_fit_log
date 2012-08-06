@@ -1,4 +1,4 @@
-module API::WorkoutsControllerActions
+module Api::WorkoutsControllerActions
   def self.included(klass)
     klass.class_eval do
       before_filter :validate_api_key
@@ -12,22 +12,22 @@ module API::WorkoutsControllerActions
   end
 
   def show
-    respond_with @workout, responder: APIResponder
+    respond_with @workout, responder: ApiResponder
   end
 
   def create
     @workout = @user.workouts.create(params[:workout])
-    respond_with @workout, responder: APIResponder, location: (user_workout_url(@workout) if @workout.valid?)
+    respond_with @workout, responder: ApiResponder, location: (user_workout_url(@workout) if @workout.valid?)
   end
 
   def update
     @workout.update_attributes(params[:workout]) if @workout
-    respond_with @workout, responder: APIResponder
+    respond_with @workout, responder: ApiResponder
   end
 
   def destroy
     @workout.destroy if @workout
-    respond_with @workout, responder: APIResponder
+    respond_with @workout, responder: ApiResponder
   end
   
   protected

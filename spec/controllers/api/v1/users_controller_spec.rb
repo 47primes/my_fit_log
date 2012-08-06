@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe API::V1::UsersController do
+describe Api::V1::UsersController do
   describe "POST to create" do
     describe "with valid attributes" do
       before do

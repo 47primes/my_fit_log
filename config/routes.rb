@@ -17,7 +17,7 @@ MyFitLog::Application.routes.draw do
     end
   end
   
-  scope module: :api, constraints: {format: "json", subdomain: "api"} do
+  scope module: :api, constraints: {format: "json"} do
     scope module: "v1", constraints: [RouteConstraints.new(version: 1, default: true)], &api_routes
     scope module: "v2", constraints: [RouteConstraints.new(version: 2)], &api_routes
   end

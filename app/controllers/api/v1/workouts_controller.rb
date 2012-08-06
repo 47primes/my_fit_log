@@ -1,3 +1,3 @@
-class API::V1::WorkoutsController < API::V1::ApplicationController
-  include API::WorkoutsControllerActions
+class Api::V1::WorkoutsController < Api::V1::ApplicationController
+  include Api::WorkoutsControllerActions
 end

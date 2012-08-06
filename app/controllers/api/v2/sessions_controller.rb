@@ -1,4 +1,4 @@
-class API::V2::SessionsController < API::V2::ApplicationController
+class Api::V2::SessionsController < Api::V2::ApplicationController
   
   def create
     if @user = authenticate_with_http_basic { |email, password| User.find_by_email(email).try(:authenticate, password) }

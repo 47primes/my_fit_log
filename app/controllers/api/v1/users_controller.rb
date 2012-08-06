@@ -1,3 +1,3 @@
-class API::V1::UsersController < API::V1::ApplicationController
-  include API::UsersControllerActions
+class Api::V1::UsersController < Api::V1::ApplicationController
+  include Api::UsersControllerActions
 end

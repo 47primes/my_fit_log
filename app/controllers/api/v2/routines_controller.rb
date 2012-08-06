@@ -1,3 +1,3 @@
-class API::V2::RoutinesController < API::V2::ApplicationController
-  include API::RoutinesControllerActions
+class Api::V2::RoutinesController < Api::V2::ApplicationController
+  include Api::RoutinesControllerActions
 end

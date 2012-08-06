@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe API::V1::WorkoutsController do
+describe Api::V1::WorkoutsController do
   before do
     @request.env["Content-Type"] = "application/json"
     

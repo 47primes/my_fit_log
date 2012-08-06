@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe API::V1::SessionsController,"#create" do
+describe Api::V1::SessionsController,"#create" do
   before do
     @user = User.create!(:name => "Mike Bradford", :email => "test@test.com", :password => "test", :password_confirmation => "test")
   end

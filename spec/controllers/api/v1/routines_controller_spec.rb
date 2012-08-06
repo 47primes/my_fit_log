@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe API::V1::RoutinesController do
+describe Api::V1::RoutinesController do
   before do
     @request.env["Content-Type"] = "application/json"    
     @user = create(:user_with_routines)
