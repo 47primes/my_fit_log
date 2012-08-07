@@ -6,7 +6,7 @@ class Workout < ActiveRecord::Base
 
   validates_presence_of :completed_at
   
-  scope :by_month, ->(user ,month=Time.now.month, year=Time.now.year) { where("user_id = ? and extract(month from workouts.completed_at) = ? and extract(year from workouts.completed_at) = ?", user.id, month, year).includes(:routines) }
+  scope :by_month, ->(user ,month=Time.now.month, year=Time.now.year) { where("user_id = ? and extract(month from workouts.completed_at) = ? and extract(year from workouts.completed_at) = ?", user.id, month, year).includes(routines: :exercises) }
 
   def self.per_page
     25
