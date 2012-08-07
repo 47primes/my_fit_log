@@ -7,7 +7,7 @@ module Api::WorkoutsControllerActions
   end
 
   def index
-    @workouts = @user.workouts.order("#{params[:sort_by]} #{params[:sort_direction]}").page(params[:page])
+    @workouts = Workout.by_month @user, (params[:month] || Time.now.month), (params[:year] || Time.now.year)
     respond_with @workouts
   end
 

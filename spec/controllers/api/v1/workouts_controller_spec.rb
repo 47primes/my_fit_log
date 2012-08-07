@@ -8,7 +8,7 @@ describe Api::V1::WorkoutsController do
   end
   
   describe "GET to index" do
-    describe "with no sorting or pagination" do
+    describe "with no month or year specified" do
       before do
         get :index, {api_key: @user.api_key, format: "json"}
       end
@@ -16,7 +16,7 @@ describe Api::V1::WorkoutsController do
       it { should respond_with(:success) }
       it { should respond_with_content_type(:json) }
       it { should assign_to(:user).with @user }
-      it { should assign_to(:workouts).with @user.workouts }
+      it { should assign_to(:workouts).with Workout.by_month(@user) }
     end
   end
 
