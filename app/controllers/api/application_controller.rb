@@ -3,7 +3,7 @@ module Api
     respond_to :json
     rescue_from StandardError, with: :handle_exception
     rescue_from Exception, with: :handle_exception
-    before_filter :log_request_headers, :set_api_version
+    before_filter :set_api_version
     attr_reader :api_version
     
     protected
