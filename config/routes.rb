@@ -9,10 +9,7 @@ MyFitLog::Application.routes.draw do
         get 'page/:page', action: :index, on: :collection
       end
       resources :workouts, only: [:create, :show, :index, :update, :destroy] do
-        get 'page/:page', action: :index, on: :collection
-        resources :routines, only: [:create, :show, :index, :update, :destroy] do
-          get 'page/:page', action: :index, on: :collection
-        end
+        resources :routines, only: [:create, :show, :index, :update, :destroy]
       end
     end
   end
