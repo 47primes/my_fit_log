@@ -17,7 +17,7 @@ ActiveRecord::Base.transaction do
   end
 
   [-12, -7, -6, -4, -2, 0, 2, 5, 7, 12, 16, 19, 22, 26, 31].each do |i|
-    workout = user.workouts.create! completed_at: i.days.from_now
+    workout = user.workouts.create! completed_at: i.days.from_now + rand(24).hours + rand(60).minutes + rand(60).seconds
     5.times do |i|
       exercise = user.exercises.find_by_name exercise_names[rand(exercise_names.size)]
       workout.routines.create! exercise_id: exercise.id, reps: rand(20), sets: rand(10)

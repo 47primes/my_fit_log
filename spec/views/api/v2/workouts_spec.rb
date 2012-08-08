@@ -32,7 +32,7 @@ describe "api/v2/workouts/workout" do
     
     json["completed_at"].should == workout.completed_at.to_i
     json["summary"].should == workout.summary
-    view.should render_template(partial: "_routine", count: workout.routines.count)
+    view.should render_template(partial: "_routine", count: 1)
   end
 end
 
