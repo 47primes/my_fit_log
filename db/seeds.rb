@@ -8,7 +8,7 @@
 #
 
 ActiveRecord::Base.transaction do
-  user = User.find_or_create_by_name "Mike Bradford", email: "mbradford@47primes.com", password: "test"
+  user = User.find_or_create_by_name "Mike Bradford", email: "test@test.com", password: "test"
 
   exercise_names = ["Bench Press", "Squats", "Dead Lifts", "Power Cleans", "Biceps Curls", "Triceps Curls", "Leg Extensions", "Chin Ups"]
 
@@ -20,7 +20,7 @@ ActiveRecord::Base.transaction do
     workout = user.workouts.create! completed_at: i.days.from_now + rand(24).hours + rand(60).minutes + rand(60).seconds
     5.times do |i|
       exercise = user.exercises.find_by_name exercise_names[rand(exercise_names.size)]
-      workout.routines.create! exercise_id: exercise.id, reps: rand(20), sets: rand(10)
+      workout.routines.create! exercise_id: exercise.id, reps: rand(20) + 2, sets: rand(10) + 2
     end
   end
 end
