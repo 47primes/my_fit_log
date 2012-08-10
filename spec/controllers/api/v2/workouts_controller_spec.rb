@@ -50,20 +50,20 @@ describe Api::V2::WorkoutsController do
   describe "POST to create" do
     describe "for a valid post" do
       before do
-        post :create, {workout: {completed_at: Time.now, summary: "Personal best time in the 800."}, format: "json"}
+        post :create, {workout: {completed_at: Time.now, summary: "Personal best."}, format: "json"}
       end
-    
+
       it { should respond_with(:created) }
       it { should respond_with_content_type(:json) }
       it { should assign_to(:workout).with assigns(:workout) }
       it { should respond_with_location user_workout_url(assigns(:workout)) }
     end
-    
+
     describe "for an invalid post" do
       before do
         post :create, {workout: {}, format: "json"}
       end
-    
+
       it { should respond_with(:unprocessable_entity) }
       it { should respond_with_content_type(:json) }
       it { @response.location.should be_nil }

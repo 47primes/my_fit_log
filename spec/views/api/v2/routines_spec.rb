@@ -7,7 +7,7 @@ describe "api/v2/routines/routine" do
     json = JSON.parse(rendered)
 
     json.each do |j|
-      %w(name reps sets duration distance notes).each do |attr|
+      %w(name reps sets).each do |attr|
         j[attr].should == routine.send(attr)
       end
     end

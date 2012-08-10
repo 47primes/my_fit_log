@@ -7,3 +7,4 @@ class Api::V1::ApplicationController < Api::ApplicationController
     return head(:unauthorized) if @user.nil?
   end
 end
+

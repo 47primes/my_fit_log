@@ -5,8 +5,6 @@ class CreateRoutines < ActiveRecord::Migration
       t.integer :exercise_id
       t.integer :sets
       t.integer :reps
-      t.integer :duration
-      t.string :distance
       t.timestamps
     end
   end
