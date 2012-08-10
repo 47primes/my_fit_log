@@ -1,0 +1,1 @@
+[Rails as a Backend for Mobile Applications](https://speakerdeck.com/u/47primes/p/rails-as-a-backend-for-mobile-applications)
